@@ -62,7 +62,7 @@ public String doLogin(@RequestParam String username,
 }
 
 
-    @GetMapping("/register")
+    @GetMapping()
     public String showRegisterPage(Model model) {
         model.addAttribute("user", new User());
         return "register"; // register.html

@@ -57,6 +57,7 @@ public class SecurityConfig {
 
                 // ✅ PUBLIC ENDPOINTS
                 .authorizeHttpRequests(auth -> auth
+                
                         .requestMatchers("/web/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")  
                         .requestMatchers("/participant/**").hasRole("PARTICIPANT")
