@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:text="${quiz.title}">Quiz</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: linear-gradient(135deg, #d9e8ff, #eef4ff, #ffffff);
+        background-size: 300% 300%;
+        animation: bgMove 8s ease infinite;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      @keyframes bgMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .quiz-container {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        margin-top: 40px;
+        padding: 45px;
+        border-radius: 22px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.6s ease;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .timer-box {
+        background: #fff4c2;
+        border: 1px solid #ffe58a;
+        padding: 7px 15px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 15px;
+        color: #6b5200;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .option-row {
+        padding: 10px 14px;
+        display: flex;
+        gap: 10px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .option-row:hover {
+        background: #edf4ff;
+        border-color: #bcd7ff;
+        transform: translateX(5px);
+      }
+
+      input[type="radio"] {
+        accent-color: #2563eb;
+        width: 18px;
+        height: 18px;
+      }
+
+      .btn-success {
+        width: 100%;
+        margin-top: 15px;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: 700;
+        border-radius: 12px;
+        background: linear-gradient(45deg, #1c8d3f, #28b957);
+        border: none;
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(0, 128, 0, 0.35);
+      }
+
+      .btn-success:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 22px rgba(0, 128, 0, 0.4);
+      }
+
+      .email-box {
+        margin-top: 20px;
+      }
+
+      hr {
+        border-color: #d9e6ff;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="quiz-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 th:text="${quiz.title}"></h3>
+          <div class="timer-box">Time Left: <span id="timeLeft"></span></div>
+        </div>
+
+        <form
+          th:action="@{'/quiz/take/' + ${quiz.id} + '/submit'}"
+          method="post"
+          id="quizForm"
+        >
+          <div th:each="q,i : ${quiz.questions}">
+            <h5>
+              <span th:text="${i.index + 1} + '.'"></span>
+              <span th:text="${q.text}"></span>
+            </h5>
+
+            <div class="ms-3 option-row" th:each="op : ${q.options}">
+              <input
+                type="radio"
+                th:name="${'q_' + q.id}"
+                th:value="${op.id}"
+                th:id="${'opt_' + op.id}"
+              />
+              <label th:for="${'opt_' + op.id}" th:text="${op.text}"></label>
+            </div>
+            <hr />
+          </div>
+
+          <!-- ✅ Email box added -->
+          <div class="email-box">
+            <label class="form-label fw-bold"
+              >Enter Email to Receive Result:</label
+            >
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              placeholder="example@gmail.com"
+              required
+            />
+          </div>
+
+          <button class="btn btn-success">Submit ✅</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      let sec = /*[[${quiz.timeLimit}]]*/ 2 * 60;
+      const label = document.getElementById("timeLeft");
+      const form = document.getElementById("quizForm");
+
+      function countdown() {
+        const m = Math.floor(sec / 60);
+        const s = sec % 60;
+        label.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(
+          2,
+          "0"
+        )}`;
+        if (sec <= 0) form.submit();
+        sec--;
+      }
+
+      countdown();
+      setInterval(countdown, 1000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #e4eeff, #f9fcff);
+      }
+
+      .dashboard-box {
+        width: 880px;
+        padding: 55px;
+        text-align: center;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+        animation: fadeIn 0.6s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .dashboard-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1e314b;
+        margin-bottom: 40px;
+      }
+
+      .card-grid {
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+        flex-wrap: wrap;
+      }
+
+      .glass-card {
+        width: 240px;
+        background: rgba(255, 255, 255, 0.78);
+        border-radius: 20px;
+        padding: 28px;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .glass-card:hover {
+        background: rgba(255, 255, 255, 0.95);
+        transform: translateY(-8px);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, 0.15);
+      }
+
+      .icon-round {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #5c8bff, #2c58ff);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        margin: auto;
+        margin-bottom: 14px;
+      }
+
+      .card-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: #1f2d40;
+      }
+
+      .subtitle {
+        font-size: 13px;
+        color: #5d6a7a;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="dashboard-box">
+      <h2 class="dashboard-title">Admin Dashboard</h2>
+
+      <div class="card-grid">
+        <!-- ✅ Manage Quizzes -->
+        <div class="glass-card" onclick="location.href='/adminview/quizzes'">
+          <div class="icon-round">📘</div>
+          <div class="card-title">Manage Quizzes</div>
+          <p class="subtitle">Create, edit & delete quizzes</p>
+        </div>
+
+        <!-- ✅ Email Notification (NEW CARD) -->
+        <div class="glass-card" onclick="location.href='/emailview/test'">
+          <div
+            class="icon-round"
+            style="background: linear-gradient(135deg, #00b09b, #0fba69)"
+          >
+            📧
+          </div>
+          <div class="card-title">Email Notification</div>
+          <p class="subtitle">Send quiz results via email</p>
+        </div>
+
+        <!-- ✅ Logout -->
+        <div class="glass-card" onclick="location.href='/logout'">
+          <div
+            class="icon-round"
+            style="background: linear-gradient(135deg, #ff6b6b, #ff3c3c)"
+          >
+            🔒
+          </div>
+          <div class="card-title">Logout</div>
+          <p class="subtitle">Exit from admin panel securely</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

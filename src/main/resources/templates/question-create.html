@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>create Question</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    />
+
+    <style>
+      body {
+        background: #f2f7ff; /* light blue soft background */
+        font-family: "Segoe UI", sans-serif;
+      }
+      .form-card {
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        width: 650px;
+        margin: auto;
+        margin-top: 40px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+        border: 1px solid #e7ecf7;
+      }
+      .form-title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #213a6b;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      label {
+        font-weight: 500;
+        color: #2c3e55;
+      }
+      .btn-success {
+        width: 100%;
+        padding: 10px;
+        font-size: 17px;
+      }
+      .back-btn {
+        position: absolute;
+        left: 30px;
+        top: 25px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/admin/question/question-list" class="btn btn-dark back-btn"
+      >⬅ Back</a
+    >
+
+    <div class="form-card">
+      <div class="form-title">Add New Question</div>
+
+      <form action="/admin/question/save" method="post">
+        <input type="hidden" name="quizId" th:value="${quizId}" />
+
+        <div class="mb-3">
+          <label>Question Text</label>
+          <input
+            type="text"
+            name="text"
+            class="form-control"
+            placeholder="Enter question"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Option 1</label>
+          <input
+            type="text"
+            name="options"
+            class="form-control"
+            placeholder="Enter option 1"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Option 2</label>
+          <input
+            type="text"
+            name="options"
+            class="form-control"
+            placeholder="Enter option 2"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Option 3</label>
+          <input
+            type="text"
+            name="options"
+            class="form-control"
+            placeholder="Enter option 3"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Option 4</label>
+          <input
+            type="text"
+            name="options"
+            class="form-control"
+            placeholder="Enter option 4"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Correct Option (1-4)</label>
+          <input
+            type="number"
+            name="correctIndex"
+            min="1"
+            max="4"
+            class="form-control"
+            placeholder="Enter correct option number"
+            required
+          />
+        </div>
+
+        <button class="btn btn-success">✅ Save Question</button>
+      </form>
+    </div>
+  </body>
+</html>
